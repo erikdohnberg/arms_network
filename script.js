@@ -27,7 +27,7 @@ var isis = function() {
       var item = $(this).data('item');
       item = _game.currentCity.items[item];
       
-      _game.buyfItem(item);
+      _game.buyItem(item);
       _game.refreshViews();
     });
     

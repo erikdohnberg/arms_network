@@ -16,7 +16,7 @@
  * This function will be called when the user changes cities
  * 
  * User Story:
- * Whenever you move citites, the game will have to move the player to 
+ * Whenever you move cities, the game will have to move the player to 
  * the new city and regenerate the items at that location.
  *
  * Hint:
@@ -24,7 +24,14 @@
  */
 isis.Game.prototype.changeCity = function(newCity) {
   console.log('trying to change city to ' + newCity.name);
-}
+  this.currentCity = newCity;
+  // Recalculating price of items in each city
+  for (var priceIndex = 0; priceIndex < newCity.items.length; priceIndex++) {
+    var item = newCity.items[priceIndex];
+    item.recalculatePrice();
+    }
+  this.refreshViews();
+  }
 
 /*
  * This function will be called when the user buys an item
@@ -34,7 +41,7 @@ isis.Game.prototype.changeCity = function(newCity) {
  * bought in bulk.
  *
  * Hint:
- * Use prompt() and confirm() to get and valid user input
+ * Use prompt() and confirm() to get and validate user input
  */
 isis.Game.prototype.buyItem = function(item) {
   console.log('trying to buy ' + item.name);
