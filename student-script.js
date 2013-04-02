@@ -45,6 +45,14 @@ isis.Game.prototype.changeCity = function(newCity) {
  */
 isis.Game.prototype.buyItem = function(item) {
   console.log('trying to buy ' + item.name);
+  //prompt user for confirmation
+  var quantity = prompt("How many do you want to buy?", 1);
+  //add item to agent inventory
+  this.agent.inventory.push(item, quantity);
+  //subtract item price from agent money
+  this.agent.money -= item.currentPrice;
+  //refresh UI view
+  this.refreshViews();
 }
 
 /**
