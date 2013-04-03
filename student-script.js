@@ -46,7 +46,7 @@ isis.Game.prototype.changeCity = function(newCity) {
 isis.Game.prototype.buyItem = function(item) {
   console.log('trying to buy ' + item.name);
   //prompt user for confirmation
-  var quantity = prompt("How many do you want to buy?", 1);
+  var quantity = prompt("How many " + item + "do you want to buy?", 1);
   //add item to agent inventory
   this.agent.inventory.push(item, quantity);
   //subtract item price from agent money
@@ -72,6 +72,14 @@ isis.Game.prototype.buyItem = function(item) {
 isis.Game.prototype.sellItem = function(inventoryItem) {
   var value = inventoryItem.item.currentPrice * inventoryItem.quantity;
   console.log('trying to sell ' + inventoryItem.item.name + ', I have ' + inventoryItem.quantity + ' worth $' + value);
+  //prompt user for confirmation
+  var quantity = prompt("How many " + inventoryItem.item.name + " do you want to sell?", 1);
+  //remove item from agent inventory
+  this.agent.inventory.pop(inventoryItem.item, quantity);
+  //add item price to agent money
+  this.agent.money += value;
+  //refresh UI view
+  this.refreshViews();
 }
 
 
