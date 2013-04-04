@@ -163,19 +163,11 @@ isis.Game.prototype.initBadThings = function(badThings) {
  */
 
 isis.Agent.prototype.getRank = function() { 
-  if (this.money >= 5000){
-  return 'Double-0'
-  }
-  else if (this.money >= 1000){
-    return 'Top Agent'
-  }
-  else if (this.money <= 500){
-    return 'Rookie';
-  }
-  else if (this.money >= 500){
-    return 'Agent'
-  }
-}
+  if (this.money >= 5000){return 'Double-0'}
+  else if (this.money >= 1000){return 'Top Agent'}
+  else if (this.money <= 500){return 'Rookie'}
+  else if (this.money >= 500){return 'Agent'}
+};
 
 /*
  * This will initialize the agent for your player. Make sure to change
