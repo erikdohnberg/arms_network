@@ -46,7 +46,7 @@ isis.Game.prototype.changeCity = function(newCity) {
 isis.Game.prototype.buyItem = function(item) {
   console.log('trying to buy ' + item.name);
   //prompt user for confirmation
-  var quantity = prompt("How many " + item.name + " do you want to buy?", 1);
+  var quantity = parseInt(prompt("How many " + item.name + " do you want to buy?", 1));
   //confirm user input
   var confirmation = confirm("Are you sure you want to buy " + quantity + " " + item.name + "?");
   var totalPrice = quantity * item.currentPrice;
@@ -57,6 +57,8 @@ isis.Game.prototype.buyItem = function(item) {
       this.agent.money -= totalPrice;
       //refresh UI view
       this.refreshViews();
+    } else {
+      alert("Insufficent funds!");
     }
 }
 
@@ -80,7 +82,7 @@ isis.Game.prototype.sellItem = function(inventoryItem) {
   //prompt user for confirmation
   var quantity = prompt("How many " + inventoryItem.item.name + " do you want to sell?", 1);
   //confirm user input
-  var confirmation = confirm("Are you sure you want to sell " + inventoryItem.quantity + " " + inventoryItem.item.name + "?");
+  var confirmation = confirm("Are you sure you want to sell " + quantity + " " + inventoryItem.item.name + "?");
     if (confirmation === true){
       //remove item from agent inventory
       this.agent.inventory.pop(inventoryItem.item, quantity);
@@ -116,6 +118,17 @@ isis.Game.prototype.initBadThings = function(badThings) {
   });
 
   badThings.push({
+    name: "A man with an eyepatch stole inventory in the night... and shot you in the foot.",
+    ohNoes: function(agent) {
+      alert("A man with an eyepatch stole inventory in the night... and shot you in the foot. Loose 25% of inventory");
+      for (var invIndex = 0; invIndex < agent.inventory.length; invIndex++) {
+        var inv = agent.inventory.item[invIndex];
+        inv.quantity -= inv.quantity * 0.25;
+      }
+    }
+  });
+
+  badThings.push({
     name: "A beautiful femme fatal stole your wallet!",
     ohNoes: function(agent) {
       console.log(this);
@@ -127,7 +140,7 @@ isis.Game.prototype.initBadThings = function(badThings) {
   badThings.push({
     name: "Got drunk and forgot where your money was!",
     ohNoes: function(agent) {
-      alert("Got drunk and forgot where your money was! -$5000");
+      alert("Got drunk and forgot where your money was! -$500");
       agent.money -= 500;
   }  
   }); 
@@ -149,18 +162,18 @@ isis.Game.prototype.initBadThings = function(badThings) {
  * If the player has more than $5000 then they should be ranked as a 'Double-0'.
  */
 
-isis.Agent.prototype.getRank = function(item) { 
-  if (this.money <= 500){
-    return 'Rookie';
-  }
-  else if (this.money >= 500){
-    return 'Agent'
+isis.Agent.prototype.getRank = function() { 
+  if (this.money >= 5000){
+  return 'Double-0'
   }
   else if (this.money >= 1000){
     return 'Top Agent'
   }
-  else if (this.money >= 5000){
-    return 'Double-0'
+  else if (this.money <= 500){
+    return 'Rookie';
+  }
+  else if (this.money >= 500){
+    return 'Agent'
   }
 }
 
@@ -172,7 +185,7 @@ isis.Agent.prototype.getRank = function(item) {
  * Hint:
  * Use prompt() to get user input.
  */
-isis.Agent.prototype.init = function(item) { 
+isis.Agent.prototype.init = function() { 
   var userName = prompt("What is your name?", "Sterling Archer");
   this.name = userName;
   var userCodename = prompt("What is your codename?", "Dutchess");

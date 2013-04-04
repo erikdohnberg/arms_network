@@ -232,8 +232,8 @@ var isis = function() {
     // roll a die (d10) 1's are always bad things
     var roll = getRandomIntInRange(1, 10);
     console.log('rolled ' + roll);
-    if (roll === 1) {
-      // if (true) {
+    // if (roll === 1) {
+      if (true) {
       // pick a bad thing and run it
       var index = getRandomIntInRange(1, this.badThings.length) - 1;
       var badThing = this.badThings[index];
