@@ -111,6 +111,7 @@ isis.Game.prototype.initBadThings = function(badThings) {
     name: "Slipped and fell! -$50",
     ohNoes: function(agent) {
       alert("Slipped and fell! -$50");
+      agent.money -= 50;
     }
   });
 
