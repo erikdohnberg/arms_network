@@ -46,7 +46,7 @@ isis.Game.prototype.changeCity = function(newCity) {
 isis.Game.prototype.buyItem = function(item) {
   console.log('trying to buy ' + item.name);
   //prompt user for confirmation
-  var quantity = prompt("How many " + item.name + "do you want to buy?", 1);
+  var quantity = prompt("How many " + item.name + " do you want to buy?", 1);
   //confirm user input
   var confirmation = confirm("Are you sure you want to buy " + quantity + " " + item.name + "?");
   var totalPrice = quantity * item.currentPrice;
@@ -108,9 +108,9 @@ isis.Game.prototype.sellItem = function(inventoryItem) {
 isis.Game.prototype.initBadThings = function(badThings) {
 
   badThings.push({
-    name: "Temporary bad thing!",
+    name: "Slipped and fell! -$50",
     ohNoes: function(agent) {
-      alert("This is a demo bad thing, luckily nothing bad happened this time!");
+      alert("Slipped and fell! -$50");
     }
   });
 
@@ -147,6 +147,7 @@ isis.Game.prototype.initBadThings = function(badThings) {
  * If the player has more than $1000 then they should be ranked as a 'Top Agent'.
  * If the player has more than $5000 then they should be ranked as a 'Double-0'.
  */
+
 isis.Agent.prototype.getRank = function(item) { 
   if (this.money <= 500){
     return 'Rookie';
@@ -160,7 +161,6 @@ isis.Agent.prototype.getRank = function(item) {
   else if (this.money >= 5000){
     return 'Double-0'
   }
-
 }
 
 /*
@@ -172,8 +172,10 @@ isis.Agent.prototype.getRank = function(item) {
  * Use prompt() to get user input.
  */
 isis.Agent.prototype.init = function(item) { 
-  this.name = 'Sterling Archer'; // This should be set by the user
-  this.codename = 'Dutchess'; // This too
+  var userName = prompt("What is your name?", "Sterling Archer");
+  this.name = userName;
+  var userCodename = prompt("What is your codename?", "Dutchess");
+  this.codename = "Codename: \"" + userCodename + "\"";
 }
 
 
